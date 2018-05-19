@@ -19,6 +19,8 @@ mongoose
 
 // Body Parser
 const bodyParser = require('body-parser');
+// Passwort
+const passport = require('passport');
 
 // Binding the Body Parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -29,7 +31,11 @@ app.use('/api/users',users);
 app.use('/api/profile',profile);
 app.use('/api/posts',posts);
 
-app.get('/', (request, response) => response.send('Hell is here'));
+// Passport ka middleware
+app.use(passport.initialize());
+
+// Passport Config
+require('./config/passport')(passport);
 
 const port = process.env.PORT || 5000;
 

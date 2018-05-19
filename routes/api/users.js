@@ -7,6 +7,12 @@ const User = require('../../models/User');
 const gravatar = require('gravatar');
 // Password Encyption Package
 const bcrypt = require('bcryptjs');
+// JSON Web Token Package
+const jwt = require('jsonwebtoken');
+// PASSPORT Authentication
+const passport = require('passport');
+// APP secret Key
+const secretKey = require('../../config/keys').secretKey;
 
 // @route   GET /api/users/test
 // @desc    To test the Users Route
@@ -49,6 +55,51 @@ router.post('/register',(req,res) => {
                 });
             }
         })
-})
+});
+
+// @route   POST /api/users/login
+// @desc    To login/sign in the registered Users
+// @access  public
+router.post('/login',(req,res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User
+        .findOne({email})
+        .then(user => {
+            // Check User Details
+            if(!user){
+                return res.status(400).json({email: "User Not Found"});
+            }
+            // Password Check
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if(isMatch){
+                        // Success Login
+
+                        // Create JWT token Payload
+                        const payload = {id: user.id, name: user.name, avatar: user.avatar};
+                        jwt.sign(payload,secretKey,{expiresIn: 3600},
+                            (err,token) => {
+                                res.status(200).json({status: true, token: "Bearer "+ token});
+                            });
+                    } else {
+                        // Failed Login // Redirect
+                       return res.status(400).json({password: "Invalid Password Bro"});
+                    }
+                });
+        });
+});
+
+// @route   POST /api/users/current
+// @desc    Passport Token Authentication is Done Here
+// @access  private
+router.post('/current', passport.authenticate('jwt',{ session: false }),(req,res) => {
+    res.status(200).json({
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email
+    });
+});
 
 module.exports = router;
