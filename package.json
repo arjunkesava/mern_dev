@@ -1,0 +1,30 @@
+{
+  "name": "devconnecter",
+  "version": "1.0.0",
+  "description": "My first Project with MERN stack development",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "keywords": [
+    "mern",
+    "full_stack",
+    "node",
+    "express",
+    "react",
+    "bootstrap"
+  ],
+  "author": "arjun.kesava@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.1.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.2.0"
+  }
+}
