@@ -9,6 +9,7 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 // Server End Validation Call
 const validateProfileInput = require('../../validation/profile');
+const validateExperienceInput = require('../../validation/experience');
 
 // @route   GET api/profile/test
 // @desc    Profile Test API
@@ -21,6 +22,40 @@ const validateProfileInput = require('../../validation/profile');
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
     const errors = {};
     Profile.findOne({ user: req.user.id })
+        .populate('user', ['name', 'email', 'avatar'])
+        .then(profile => {
+            if(!profile){
+                errors.noprofile = "There is no profile"
+                return res.status(404).json(errors);
+            }
+            res.status(200).json(profile);
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+// @route   GET /api/profile/handle/:handle
+// @desc    To View Any Single User Profiles by Handle
+// @access  public
+router.get('/handle/:handle', (req, res) => {
+    const errors = {};
+    Profile.findOne({ handle: req.params.handle })
+        .populate('user', ['name', 'email', 'avatar'])
+        .then(profile => {
+            if(!profile){
+                errors.noprofile = "There is no profile"
+                return res.status(404).json(errors);
+            }
+            res.status(200).json(profile);
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+// @route   GET /api/profile/user/:userId
+// @desc    To View Any Single User Profiles by User ID
+// @access  public
+router.get('/user/:userId', (req, res) => {
+    const errors = {};
+    Profile.findOne({ user: req.params.userId })
         .populate('user', ['name', 'email', 'avatar'])
         .then(profile => {
             if(!profile){
@@ -91,10 +126,34 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
                     })
             }
         })
+});
 
-
-
-
+// @route   POST api/profile/experience
+// @desc    Add Experience to the Profile
+// @access  Private
+router.post('/experience',passport.authenticate('jwt', { session: false }), (req, res) => {
+    // Server End Validation
+    const { errors, isValid } = validateExperienceInput(req.body);
+    if(!isValid)
+        return res.status(404).json(errors);
+    
+    Profile.findOne({ user: req.user.id })
+        .then(profile => {
+            const newExperience = {
+                title: req.body.title,
+                company: req.body.company,
+                fromDate: req.body.fromDate,
+                toDate: req.body.toDate,
+                current: req.body.current,
+                description: req.body.description,
+                skillsUsed: req.body.skillsUsed, 
+            };
+            
+            // Add Experience
+            profile.experience.unshift(newExperience);
+            // Save\Update Profile
+            profile.save().then(profile => res.status(200).json(profile));
+        });
 });
 
 module.exports = router;
