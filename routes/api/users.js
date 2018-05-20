@@ -13,6 +13,10 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 // APP secret Key
 const secretKey = require('../../config/keys').secretKey;
+// Load Server Side Error Validations
+const validateRegisterInput = require('../../validation/register');
+// Load Server Side Error Validations
+const validateLogInInput = require('../../validation/login');
 
 // @route   GET /api/users/test
 // @desc    To test the Users Route
@@ -23,7 +27,13 @@ router.get('/test',(req,res) => (res.status(200).json({"msg": "Users api looks c
 // @desc    To register a new User
 // @access  publice
 router.post('/register',(req,res) => {
-    // return res.status(200).json(req);
+    // Server Side Input Validation Done, here
+    const {errors, isValid } = validateRegisterInput(req.body);
+
+    // Check Validation
+    if(!isValid)
+        return res.status(400).json(errors);
+
     User
         .findOne({email: req.body.email})
         .then(userErr => {
@@ -60,7 +70,14 @@ router.post('/register',(req,res) => {
 // @route   POST /api/users/login
 // @desc    To login/sign in the registered Users
 // @access  public
-router.post('/login',(req,res) => {
+router.post('/login', (req, res) => {
+    // Server Side Input Validation Done, here
+    const { errors, isValid } = validateLogInInput(req.body);
+
+    // Check Validation
+    if (!isValid)
+        return res.status(400).json(errors);
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -69,7 +86,8 @@ router.post('/login',(req,res) => {
         .then(user => {
             // Check User Details
             if(!user){
-                return res.status(400).json({email: "User Not Found"});
+                errors.email = "User Not Found";
+                return res.status(400).json(errors);
             }
             // Password Check
             bcrypt.compare(password, user.password)
@@ -85,7 +103,8 @@ router.post('/login',(req,res) => {
                             });
                     } else {
                         // Failed Login // Redirect
-                       return res.status(400).json({password: "Invalid Password Bro"});
+                        errors.password = "Invalid Password Bro";
+                        return res.status(400).json(errors);
                     }
                 });
         });

@@ -1,0 +1,14 @@
+/node_modules
+/argument
+argument/logs/20180519T094549/renderer1.log
+argument/Cache/data_0
+argument/Cache/data_1
+argument/Cache/data_3
+argument/Cache/index
+argument/GPUCache/data_1
+argument/GPUCache/index
+argument/Local Storage/file__0.localstorage
+argument/logs/20180519T094549/sharedprocess.log
+argument/logs/20180519T094549/output_1_20180519T094601/extension-output-#1.log
+argument/logs/20180519T094549/output_1_20180519T094601/extension-output-#2.log
+package-lock.json
