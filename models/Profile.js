@@ -90,9 +90,6 @@ const ProfileSchema = new Schema({
             },
             description: {
                 type: String
-            },
-            skillsUsed: {
-                type: [String]
             }
         }
     ],
