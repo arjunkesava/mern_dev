@@ -18,6 +18,18 @@ const validateRegisterInput = require('../../validation/register');
 // Load Server Side Error Validations
 const validateLogInInput = require('../../validation/login');
 
+// router.all('/',(req, res, next) => {
+//     console.log("allowCrossDomain");
+//     console.log(req.method);
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     if (req.method === "OPTIONS") 
+//         res.send(200);
+//     else 
+//         next();
+// })
+
 // @route   GET /api/users/test
 // @desc    To test the Users Route
 // @access  publice
@@ -26,7 +38,8 @@ router.get('/test',(req,res) => (res.status(200).json({"msg": "Users api looks c
 // @route   POST /api/users/register
 // @desc    To register a new User
 // @access  publice
-router.post('/register',(req,res) => {
+router.route('/register')
+    .post((req,res) => {
     // Server Side Input Validation Done, here
     const {errors, isValid } = validateRegisterInput(req.body);
 
