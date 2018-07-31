@@ -21,6 +21,7 @@ class Dashboard extends Component {
             if(Object.keys(profile).length > 0) {
                 dashboardContent = <h4>TODO: Dashboard Profile View Page</h4>
             }else{
+                // An Empty Profile View is below
                 dashboardContent = (
                     <div>
                         <p className = "lead text-muted">Welcome { user.name } </p>
