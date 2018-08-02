@@ -19,6 +19,9 @@ import Login from './components/auth/Login'
 import Dashboard from './components/dashboard/Dashboard'
 // Private Router Common Setup
 import PrivateRoute from './components/common/PrivateRoute'
+// Profile UI routes
+import CreateProfile from './components/create-profile/CreateProfile'
+import EditProfile from './components/edit-profile/EditProfile'
 // Common & General Css Stylessheet import
 import './App.css';
 
@@ -45,26 +48,32 @@ if(localStorage.jwtToken){
 }
 
 class App extends Component {
-  render() {
-    return (
-        <Provider store = { store }>
-            <Router>
-                <div className="App">
-                    <Navbar />
-                    <Route exact path="/" component={Landing} />
-                    <div className="container">
-                        <Route exact path="/register" component={Register} />
-                        <Route exact path="/login" component={Login} />
-                        <Switch>
-                            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                        </Switch>
+    render() {
+        return (
+            <Provider store = { store }>
+                <Router>
+                    <div className="App">
+                        <Navbar />
+                        <Route exact path="/" component={Landing} />
+                        <div className="container">
+                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/login" component={Login} />
+                            <Switch>
+                                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+                            </Switch>
+                        </div>
+                        <Footer />
                     </div>
-                    <Footer />
-                </div>
-            </Router>
-        </Provider>
-    )
-  }
+                </Router>
+            </Provider>
+        )
+    }
 }
 
 export default App
