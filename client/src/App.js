@@ -22,6 +22,10 @@ import PrivateRoute from './components/common/PrivateRoute'
 // Profile UI routes
 import CreateProfile from './components/create-profile/CreateProfile'
 import EditProfile from './components/edit-profile/EditProfile'
+// Experience Route
+import AddExperience from './components/add-creditentials/AddExperience'
+// Education Route
+import AddEducation from './components/add-creditentials/AddEducation'
 // Common & General Css Stylessheet import
 import './App.css';
 
@@ -66,6 +70,12 @@ class App extends Component {
                             </Switch>
                             <Switch>
                                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute exact path="/add-experience" component={AddExperience} />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute exact path="/add-education" component={AddEducation} />
                             </Switch>
                         </div>
                         <Footer />
