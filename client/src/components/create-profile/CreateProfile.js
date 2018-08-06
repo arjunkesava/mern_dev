@@ -62,7 +62,7 @@ class CreateProfile extends Component {
     onChange(event){
         this.setState({ [event.target.name]: event.target.value })
     }
-  render() {
+    render() {
     const { errors, displaySocialInputs } = this.state
     
     let socialInputs
