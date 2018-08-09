@@ -76,6 +76,23 @@ export const clearCurrentProfile = () => {
         type: CLEAR_CURRENT_PROFILE
     }
 }
+// Delete Experience Based on Id
+export const deleteExperience = id => dispatch => {
+    axios
+        .delete('/api/profile/experience/'+id)
+        .then(response => 
+            dispatch({
+                type: GET_PROFILE,
+                payload: response.data
+            })
+        )
+        .catch(err => 
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        )
+}
 // Delete Account Action
 export const deleteAccount = () => dispatch => {
     if(window.confirm("Are you sure? This can`t be undone dude")){
