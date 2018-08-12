@@ -34,10 +34,28 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
         .catch(err => res.status(404).json(err));
 });
 
+// @route   GET api/profile/all
+// @desc    Get all profiles
+// @access  Public
+router.get('/all', (req, res) => {
+    const errors = {};
+    Profile.find()
+        .populate('user', ['name', 'avatar'])
+        .then(profiles => {
+            if (!profiles) {
+                errors.noprofile = 'There are no profiles';
+                return res.status(404).json(errors);
+            }
+
+            res.json(profiles);
+        })
+        .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
+});
+
 // @route   GET /api/profile/handle/:handle
 // @desc    To View Any Single User Profiles by Handle
 // @access  public
-router.get('/handle/:handle', (req, res) => {
+router.get('/profile/:handle', (req, res) => {
     const errors = {};
     Profile.findOne({ handle: req.params.handle })
         .populate('user', ['name', 'email', 'avatar'])

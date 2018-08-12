@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER } from './types'
+import { GET_PROFILE, GET_PROFILES, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER } from './types'
 
 // Axios Default Calls
 axios.defaults.baseURL = "http://localhost:5000"
@@ -75,6 +75,26 @@ export const clearCurrentProfile = () => {
     return {
         type: CLEAR_CURRENT_PROFILE
     }
+}
+// GET all Public Profiles
+export const getProfiles = () => dispatch => {
+    // Loader Call Before you fetch data
+    dispatch(setProfileLoading())
+
+    axios
+        .get('/api/profile/all/')
+        .then(response => 
+            dispatch({
+                type: GET_PROFILES,
+                payload: response.data
+            })
+        )
+        .catch(err => 
+            dispatch({
+                type: GET_PROFILES,
+                payload: null
+            })
+        )
 }
 // Delete Experience Based on Id
 export const deleteExperience = id => dispatch => {

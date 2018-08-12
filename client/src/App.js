@@ -26,8 +26,10 @@ import EditProfile from './components/edit-profile/EditProfile'
 import AddExperience from './components/add-creditentials/AddExperience'
 // Education Route
 import AddEducation from './components/add-creditentials/AddEducation'
+// Public All Profiles View
+import Profiles from './components/profiles/Profiles'
 // Common & General Css Stylessheet import
-import './App.css';
+import './App.css'
 
 // Check for json web token
 if(localStorage.jwtToken){
@@ -62,6 +64,7 @@ class App extends Component {
                         <div className="container">
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />
+                            <Route exact path="/profiles" component={Profiles} />
                             <Switch>
                                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                             </Switch>
