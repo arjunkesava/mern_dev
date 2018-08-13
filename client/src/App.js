@@ -28,6 +28,8 @@ import AddExperience from './components/add-creditentials/AddExperience'
 import AddEducation from './components/add-creditentials/AddEducation'
 // Public All Profiles View
 import Profiles from './components/profiles/Profiles'
+// Single Profile By Handle
+import Profile from './components/profile/Profile'
 // Common & General Css Stylessheet import
 import './App.css'
 
@@ -65,6 +67,7 @@ class App extends Component {
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/profiles" component={Profiles} />
+                            <Route exact path="/profile/:handle" component={Profile} />
                             <Switch>
                                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                             </Switch>

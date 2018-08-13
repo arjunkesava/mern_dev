@@ -25,6 +25,26 @@ export const getCurrentProfile = () => dispatch => {
             })
         )
 }
+// Get Profile By Handle
+export const getProfileByHandle = (handle) => dispatch => {
+    // Loader Call, before fetching data
+    dispatch(setProfileLoading())
+    // Hit Profile Get Request with Axios Api
+    axios
+        .get(`/api/profile/${handle}`)
+        .then(response =>
+            dispatch({
+                type: GET_PROFILE,
+                payload: response.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_PROFILE,
+                payload: null
+            })
+        )
+}
 // Create Profile Action
 export const createProfile = (profileData, history) => dispatch => {
     // Loader Call, before fetching data
