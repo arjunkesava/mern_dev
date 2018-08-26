@@ -1,4 +1,4 @@
-/node_modules
+/node_modules/*
 /argument
 argument/logs/20180519T094549/renderer1.log
 argument/Cache/data_0

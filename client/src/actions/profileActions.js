@@ -31,11 +31,11 @@ export const getProfileByHandle = (handle) => dispatch => {
     dispatch(setProfileLoading())
     // Hit Profile Get Request with Axios Api
     axios
-        .get(`/api/profile/${handle}`)
-        .then(response =>
+        .get('/api/profile/handle/'+handle)
+        .then(res => 
             dispatch({
                 type: GET_PROFILE,
-                payload: response.data
+                payload: res.data
             })
         )
         .catch(err =>
