@@ -32,6 +32,8 @@ import Profiles from './components/profiles/Profiles'
 import Profile from './components/profile/Profile'
 // Posts Main Comp
 import Posts from './components/posts/Posts'
+// Single Post by Id
+import Post from './components/post/Post'
 // Common & General Css Stylessheet import
 import './App.css'
 
@@ -87,6 +89,9 @@ class App extends Component {
                             </Switch>
                             <Switch>
                                 <PrivateRoute exact path="/feed" component={Posts} />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute exact path="/post/:id" component={Post} />
                             </Switch>
                         </div>
                         <Footer />

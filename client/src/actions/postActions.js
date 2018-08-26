@@ -1,4 +1,4 @@
-import { ADD_POST, GET_ERRORS, POST_LOADING, GET_POSTS, DELETE_POST } from './types'
+import { ADD_POST, GET_ERRORS, POST_LOADING, GET_POSTS, GET_POST, DELETE_POST } from './types'
 import axios from 'axios'
 
 // Axios Default Calls
@@ -36,6 +36,25 @@ export const getPosts = () => dispatch => {
         .catch(err => {
             dispatch({
                 type: GET_POSTS,
+                payload: null
+            })
+        })
+}
+
+// View single POST by Id
+export const getPost = (id) => dispatch => {
+    dispatch(setPostLoading())
+    axios
+        .get(`/api/posts/${id}`)
+        .then(response => {
+            dispatch({
+                type: GET_POST,
+                payload: response.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_POST,
                 payload: null
             })
         })

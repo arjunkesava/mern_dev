@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import isEmpty from '../../validations/is-empty';
-import { spawn } from 'child_process';
+import isEmpty from '../../validations/is-empty'
 
 class ProfileAbout extends Component {
   render() {
