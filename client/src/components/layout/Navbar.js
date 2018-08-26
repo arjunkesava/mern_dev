@@ -14,14 +14,25 @@ class Navbar extends Component {
     render() {
         const { isAuthenticated, user } = this.props.auth
         
-        const authLinks = <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <a className="nav-link" onClick={this.onLogoutClick.bind(this)}>
-                <img className="rounded-circle" src={user.avatar} alt={user.name} style={{ width: "25px", marginRight: "5px" }} />
-                Logout
-              </a>
-            </li>
-          </ul>;
+        const authLinks = (
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                    <Link className="nav-link" to="/feed">
+                        Post Feed
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard">
+                        Dashboard
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.onLogoutClick.bind(this)}>
+                        <img className="rounded-circle" src={user.avatar} alt={user.name} style={{ width: "25px", marginRight: "5px" }} />
+                        Logout
+                    </a>
+                </li>
+            </ul>)
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">

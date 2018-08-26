@@ -30,6 +30,8 @@ import AddEducation from './components/add-creditentials/AddEducation'
 import Profiles from './components/profiles/Profiles'
 // Single Profile By Handle
 import Profile from './components/profile/Profile'
+// Posts Main Comp
+import Posts from './components/posts/Posts'
 // Common & General Css Stylessheet import
 import './App.css'
 
@@ -82,6 +84,9 @@ class App extends Component {
                             </Switch>
                             <Switch>
                                 <PrivateRoute exact path="/add-education" component={AddEducation} />
+                            </Switch>
+                            <Switch>
+                                <PrivateRoute exact path="/feed" component={Posts} />
                             </Switch>
                         </div>
                         <Footer />

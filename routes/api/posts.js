@@ -80,15 +80,18 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req,
             Post.findById(req.params.id)
                 .then(post => {
                     // Check for POST
-                    if(post.likes.filter(like => res.user.toString() === req.user.id).length > 0){
+                    if(post.likes.filter(like => like._id.toString() === req.user.id).length > 0){
                         return res.status(400).json({ alreadyliked: "User already Liked this post" })
                     }
                     // Adding Like to it
-                    post.likes.unshift({ user: req.user.id });
+                    post.likes.unshift(req.user.id)
                     // Saving\Updating the post here
-                    post.save().then(res => res.status(200).json(post));
+                    post.save().then(post => res.status(200).json(post));
                 })
-                .catch(post => res.status(404).json({ postnotfound: "No post found" }))
+                .catch(err => {
+                    console.log(err)
+                    res.status(404).json({ postnotfound: "No post found" })
+                })
         })
 });
 
@@ -101,19 +104,22 @@ router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (re
             Post.findById(req.params.id)
                 .then(post => {
                     // Check for POST
-                    if(post.likes.filter(like => res.user.toString() === req.user.id).length > 0){
+                    if(post.likes.filter(like => like._id.toString() === req.user.id).length === 0){
                         return res.status(400).json({ notliked: "You haven`t Liked this post" })
                     }
                     // Finding the Index of the userId to Unlike It
                     const removeIndex = post.likes
-                        .map(item => req.user.toString())
+                        .map(item => item._id.toString())
                         .indexOf(req.user.id);
                     // Splice the Like here
                     post.likes.splice(removeIndex, 1);
                     // Save the post finally
-                    post.save().then(res => res.status(200).json(post));
+                    post.save().then(post => res.status(200).json(post));
                 })
-                .catch(post => res.status(404).json({ postnotfound: "No post found" }))
+                .catch(err => {
+                    console.log(err)
+                    res.status(404).json({ postnotfound: "No post found" })
+                })
         })
 });
 
@@ -134,7 +140,7 @@ router.delete('/comment/:id/:comment_id', passport.authenticate('jwt', { session
             // Adding that to the post
             post.comments.splice(removeIndex, 1);
             // Save the post finally
-            post.save().then(res => res.status(200).json(post));
+            post.save().then(post => res.status(200).json(post));
         })
         .catch(post => res.status(404).json({ postnotfound: "No post found" }))
 });
