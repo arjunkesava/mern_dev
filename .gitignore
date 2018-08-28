@@ -12,3 +12,4 @@ argument/logs/20180519T094549/sharedprocess.log
 argument/logs/20180519T094549/output_1_20180519T094601/extension-output-#1.log
 argument/logs/20180519T094549/output_1_20180519T094601/extension-output-#2.log
 package-lock.json
+config/key_dev.js
