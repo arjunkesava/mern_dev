@@ -21,6 +21,8 @@ mongoose
 const bodyParser = require('body-parser');
 // Passwort
 const passport = require('passport');
+// Path of files
+const path = require('path')
 
 // Binding the Body Parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -30,6 +32,17 @@ app.use(bodyParser.json());
 app.use('/api/users',users);
 app.use('/api/profile',profile);
 app.use('/api/posts',posts);
+
+// Serve Statics in Production baby
+if(process.env.NODE_ENV === 'production'){
+    // Set Static Folder Baby
+    app.use(express.static('client/build'));
+
+    // Here, we serve all other requests
+    app.use('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client','build','index.html'));
+    });
+}
 
 // Passport ka middleware
 app.use(passport.initialize());
