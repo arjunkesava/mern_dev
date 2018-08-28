@@ -2,9 +2,6 @@ import axios from 'axios'
 
 import { GET_PROFILE, GET_PROFILES, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER } from './types'
 
-// Axios Default Calls
-axios.defaults.baseURL = "http://localhost:5000"
-
 // Get Current Profile
 export const getCurrentProfile = () => dispatch => {
     // Loader Call, before fetching data

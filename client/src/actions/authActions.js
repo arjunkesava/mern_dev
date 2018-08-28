@@ -3,9 +3,6 @@ import setAuthToken from "../utils/setAuthToken"
 import jwt_decode from "jwt-decode"
 import { GET_ERRORS, SET_CURRENT_USER } from './types'
 
-// Axios Default Calls
-axios.defaults.baseURL = "http://localhost:5000"
-
 // Register User Action
 export const registerUser = (userData, history) => dispatch => {
 

@@ -1,9 +1,6 @@
 import { ADD_POST, GET_ERRORS, POST_LOADING, GET_POSTS, GET_POST, DELETE_POST } from './types'
 import axios from 'axios'
 
-// Axios Default Calls
-axios.defaults.baseURL = "http://localhost:5000"
-
 // Add New POST
 export const addPost = postData => dispatch => {
     axios
