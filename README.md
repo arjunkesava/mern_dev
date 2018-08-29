@@ -8,9 +8,9 @@ Built using **MongoDB**, **Express JS**, **React JS/Redux**, **Node JS**
 Follow the below steps
 
     git clone https://github.com/arjunkesava/mern_dev.git
-    cd mern_dev             // Project Root Directory
-    npm install             // <-- Install Node dependencies
-    cd client 		// <-- Go to React client
+    cd mern_dev		// Project Root Directory
+    npm install     // <-- Install Node dependencies
+    cd client		// <-- Go to React client
 	npm install		// <-- Install React dependencies
 	cd ../			// <-- Go back to server (mern_dev)
 	npm run dev		// <-- Check Database Configuration below and run this command
@@ -23,14 +23,14 @@ Steps to run configure mLab
  2. Create a free account (mLab gives you 500Mb Sandbox for free)
  3. It will give you a mongoURI like "mongodb://\<username>:\<password>@\<databasedomain>:\<port>/\<database>"
  4. And also secret key will be provided to you in mLab account
- 5. Create a file named "key_dev.js" at "./config/<key_dev.js>"
+ 5. Create a file named "**key_dev.js**" at "./config/<key_dev.js>"
  6. Write the above generated keys in it (example given below).
->  ```
->   module.exports = {
-	>   	mongoURI: "mongodb://<username>:<password>@<databasedomain>:<port>/<database>",
-	>   	secretKey: "<secret-key>"
->   }
->   ```
+  ```
+   module.exports = {
+	mongoURI: "mongodb://<username>:<password>@<databasedomain>:<port>/<database>",
+	secretKey: "<secret-key>"
+   }
+   ```
 
 ## Authorization
 For Private API`s, I used [JWT-Bearer](https://jwt.io/introduction/) Token and passport js	
